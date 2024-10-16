@@ -17,16 +17,16 @@ app.append(button);
 
 let count: number = 0;
 const countDiv = document.createElement("div");
-countDiv.innerText = `${count} bears`;
+countDiv.innerText = `${count.toFixed(6)} bears`;
 
 app.append(countDiv);
 button.addEventListener("click", () => {
-  incrementCounter();
+  incrementCounter(1);
 });
 
 // Make a new function called incrementCount
-const incrementCounter = () => {
-  count += 1;
+const incrementCounter = (amount: number) => {
+  count += amount;
   // If theres one bear set as that statement for proper grammar
   if (count != 1) {
     countDiv.innerText = `${count} bears`;
@@ -34,8 +34,20 @@ const incrementCounter = () => {
     countDiv.innerText = `${count} bear`;
   }
 };
-// Make it so that the counter counts up every second
-setInterval(incrementCounter, 1000);
+
+/// Animation frame function to increment counter smoothly
+let lastUpdateTime = performance.now();
+
+const animate = (time: number) => {
+  const elapsedTime = (time - lastUpdateTime) / 1000; // Calculate the time elapsed in seconds
+  lastUpdateTime = time;
+
+  incrementCounter(elapsedTime); // Increment counter by time-dependent amount
+  requestAnimationFrame(animate); // Request the next frame
+};
+
+// Start the animation loop
+requestAnimationFrame(animate);
 
 // Append elements to app container
 app.append(header, button, countDiv);
