@@ -26,14 +26,14 @@ button.addEventListener("click", () => {
 
 // Make a new function called incrementCount
 const incrementCounter = () => {
-    count += 1; 
-    // If theres one bear set as that statement for proper grammar
-    if (count != 1) {
-        countDiv.innerText = `${count} bears`;
-    } else {
-        countDiv.innerText = `${count} bear`;
-    }
-}
+  count += 1;
+  // If theres one bear set as that statement for proper grammar
+  if (count != 1) {
+    countDiv.innerText = `${count} bears`;
+  } else {
+    countDiv.innerText = `${count} bear`;
+  }
+};
 // Make it so that the counter counts up every second
 setInterval(incrementCounter, 1000);
 
