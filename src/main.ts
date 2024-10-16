@@ -2,7 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "jasmine liang";
+const gameName = "Bear Clicker";
 document.title = gameName;
 
 const header = document.createElement("h1");
@@ -68,7 +68,7 @@ purchaseButton.addEventListener("click", () => {
     count -= 10; // Deduct 10 units for purchase
     growthRate += 1; // Increase growth rate to gain more per second
     honey += 1; // Increment honey counter
-    
+
     honeyDiv.innerText = `${honey} jars of honey`; // Update honey display
     incrementCounter(0); // Update display and purchase button state
   }
