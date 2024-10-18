@@ -62,6 +62,26 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+#bearButton {
+  background-color: #fff9c2; /* Set a green background */
+  color: white; /* White text */
+  border: 2px solid #fff9c2; /* A solid border with a shade of green */
+  padding: 10px 20px; /* Custom padding */
+  font-size: 1.2em; /* Slightly larger font size */
+  border-radius: 100%; /* Apply rounded corners */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transitions for interactions */
+
+}
+
+#bearButton:hover {
+  background-color: #f7e274; /* Lighter green on hover */
+}
+
+#bearButton:active {
+  background-color: #fce46a; /* Darker green on click */
+  transform: scale(0.98); /* Scale slightly on click */
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

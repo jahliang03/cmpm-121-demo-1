@@ -2,16 +2,16 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "bear clicker";
+const gameName = "bear shop";
 document.title = gameName;
 
 const header = document.createElement("h1");
 header.innerHTML = gameName;
 app.append(header);
 
-const button = document.createElement("button");
-button.innerText = "🐻"; // Emoji displayed in button
-app.append(button);
+const bearButton = document.createElement("button");
+bearButton.innerText = "🐻"; // Emoji displayed in button
+app.append(bearButton);
 
 let count: number = 0;
 let growthRate: number = 0; // Initial growth rate is 0
@@ -32,12 +32,13 @@ growthRateDiv.innerText = `Growth Rate: ${growthRate.toFixed(1)} bears/sec`;
 app.append(growthRateDiv);
 
 const honeyDiv = document.createElement("div");
-honeyDiv.innerText = `A: ${honeyA}, B: ${honeyB}, C: ${honeyC}`;
+honeyDiv.innerText = `🍎 ${honeyA}, 🍯${honeyB}, 🍯🐝 ${honeyC}`;
 app.append(honeyDiv);
 
-button.addEventListener("click", () => {
+bearButton.addEventListener("click", () => {
   incrementCounter(1);
 });
+bearButton.id = "bearButton";
 
 // Increment counter function
 const incrementCounter = (amount: number) => {
@@ -70,23 +71,28 @@ const animate = (time: number) => {
 requestAnimationFrame(animate);
 
 // Function to update button text with current price
-const updateButtonText = (button: HTMLButtonElement, type: string, price: number, rate: number) => {
-  button.innerText = `Item ${type} (${rate}/sec, ${price.toFixed(2)} units)`;
+const updateButtonText = (
+  button: HTMLButtonElement,
+  type: string,
+  price: number,
+  rate: number,
+) => {
+  button.innerText = `${type} (${rate}/sec, ${price.toFixed(2)} units)`;
 };
 
 // Create purchase buttons for each upgrade type
 const purchaseButtonA = document.createElement("button");
-updateButtonText(purchaseButtonA, "A", priceA, 0.1);
+updateButtonText(purchaseButtonA, "honey apple 🍎 ", priceA, 0.1);
 purchaseButtonA.disabled = true;
 app.append(purchaseButtonA);
 
 const purchaseButtonB = document.createElement("button");
-updateButtonText(purchaseButtonB, "B", priceB, 2.0);
+updateButtonText(purchaseButtonB, "honey pot 🍯", priceB, 2.0);
 purchaseButtonB.disabled = true;
 app.append(purchaseButtonB);
 
 const purchaseButtonC = document.createElement("button");
-updateButtonText(purchaseButtonC, "C", priceC, 50.0);
+updateButtonText(purchaseButtonC, "honey hive 🍯🐝", priceC, 50.0);
 purchaseButtonC.disabled = true;
 app.append(purchaseButtonC);
 
@@ -97,7 +103,7 @@ purchaseButtonA.addEventListener("click", () => {
     growthRate += 0.1;
     honeyA += 1;
     priceA *= 1.15; // Increase price by 15%
-    updateButtonText(purchaseButtonA, "A", priceA, 0.1);
+    updateButtonText(purchaseButtonA, "honey apple 🍎", priceA, 0.1);
     updateDisplays();
   }
 });
@@ -108,7 +114,7 @@ purchaseButtonB.addEventListener("click", () => {
     growthRate += 2.0;
     honeyB += 1;
     priceB *= 1.15; // Increase price by 15%
-    updateButtonText(purchaseButtonB, "B", priceB, 2.0);
+    updateButtonText(purchaseButtonB, "honey pot 🍯", priceB, 2.0);
     updateDisplays();
   }
 });
@@ -119,7 +125,7 @@ purchaseButtonC.addEventListener("click", () => {
     growthRate += 50.0;
     honeyC += 1;
     priceC *= 1.15; // Increase price by 15%
-    updateButtonText(purchaseButtonC, "C", priceC, 50.0);
+    updateButtonText(purchaseButtonC, "honey hive 🍯🐝", priceC, 50.0);
     updateDisplays();
   }
 });
@@ -127,14 +133,14 @@ purchaseButtonC.addEventListener("click", () => {
 // Function to update all relevant displays
 const updateDisplays = () => {
   growthRateDiv.innerText = `Growth Rate: ${growthRate.toFixed(1)} bears/sec`;
-  honeyDiv.innerText = `A: ${honeyA}, B: ${honeyB}, C: ${honeyC}`;
+  honeyDiv.innerText = ` 🍎 ${honeyA}, 🍯 ${honeyB}, 🍯🐝  ${honeyC}`;
   incrementCounter(0); // Update countDiv and button states
 };
 
 // Append all elements to the app container
 app.append(
   header,
-  button,
+  bearButton,
   purchaseButtonA,
   purchaseButtonB,
   purchaseButtonC,
