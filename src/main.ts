@@ -25,11 +25,42 @@ interface Item {
 
 // Initialize available items with quantity
 const availableItems: Item[] = [
-  { name: "🍎", price: 10, rate: 0.1, description: "Honey Apple: A sweet apple that attracts bears.", quantity: 0 },
-  { name: "🍯", price: 100, rate: 2, description: "Honey Pot: A pot of honey with bear-attracting aromas.", quantity: 0 },
-  { name: "🍯🐝", price: 1000, rate: 50, description: "Bee Hive: an entire hive dedicated to producing honey.", quantity: 0 },
-  { name: "🍯🐻", price: 5000, rate: 100, description: "Booster Syrup: A mysterious syrup that doubles bear productivity.", quantity: 0 },
-  { name: "🍯🏭", price: 20000, rate: 500, description: "Honey Factory: A factory that mass-produces honey delights.", quantity: 0 },
+  {
+    name: "🍎",
+    price: 10,
+    rate: 0.1,
+    description: "Honey Apple: A sweet apple that attracts bears.",
+    quantity: 0,
+  },
+  {
+    name: "🍯",
+    price: 100,
+    rate: 2,
+    description: "Honey Pot: A pot of honey with bear-attracting aromas.",
+    quantity: 0,
+  },
+  {
+    name: "🍯🐝",
+    price: 1000,
+    rate: 50,
+    description: "Bee Hive: an entire hive dedicated to producing honey.",
+    quantity: 0,
+  },
+  {
+    name: "🍯🐻",
+    price: 5000,
+    rate: 100,
+    description:
+      "Booster Syrup: A mysterious syrup that doubles bear productivity.",
+    quantity: 0,
+  },
+  {
+    name: "🍯🏭",
+    price: 20000,
+    rate: 500,
+    description: "Honey Factory: A factory that mass-produces honey delights.",
+    quantity: 0,
+  },
 ];
 
 // Initialize counters/prices
@@ -63,8 +94,14 @@ const incrementCounter = (amount: number) => {
 };
 
 const updateButtonStates = () => {
-  const thresholds = availableItems.map(item => item.price);
-  [purchaseButtonA, purchaseButtonB, purchaseButtonC, purchaseButtonD, purchaseButtonE].forEach((button, index) => {
+  const thresholds = availableItems.map((item) => item.price);
+  [
+    purchaseButtonA,
+    purchaseButtonB,
+    purchaseButtonC,
+    purchaseButtonD,
+    purchaseButtonE,
+  ].forEach((button, index) => {
     button.disabled = count < thresholds[index];
   });
 };
@@ -80,33 +117,63 @@ const animate = (time: number) => {
 requestAnimationFrame(animate);
 
 // Button Update Function
-const updateButtonText = (button: HTMLButtonElement, type: string, price: number, rate: number) => {
+const updateButtonText = (
+  button: HTMLButtonElement,
+  type: string,
+  price: number,
+  rate: number,
+) => {
   button.innerText = `${type} (${rate}/sec, ${price.toFixed(2)} units)`;
 };
 
 // Create Purchase Buttons
 const purchaseButtonA = document.createElement("button");
-updateButtonText(purchaseButtonA, availableItems[0].name, availableItems[0].price, availableItems[0].rate);
+updateButtonText(
+  purchaseButtonA,
+  availableItems[0].name,
+  availableItems[0].price,
+  availableItems[0].rate,
+);
 purchaseButtonA.disabled = true;
 app.append(purchaseButtonA);
 
 const purchaseButtonB = document.createElement("button");
-updateButtonText(purchaseButtonB, availableItems[1].name, availableItems[1].price, availableItems[1].rate);
+updateButtonText(
+  purchaseButtonB,
+  availableItems[1].name,
+  availableItems[1].price,
+  availableItems[1].rate,
+);
 purchaseButtonB.disabled = true;
 app.append(purchaseButtonB);
 
 const purchaseButtonC = document.createElement("button");
-updateButtonText(purchaseButtonC, availableItems[2].name, availableItems[2].price, availableItems[2].rate);
+updateButtonText(
+  purchaseButtonC,
+  availableItems[2].name,
+  availableItems[2].price,
+  availableItems[2].rate,
+);
 purchaseButtonC.disabled = true;
 app.append(purchaseButtonC);
 
 const purchaseButtonD = document.createElement("button");
-updateButtonText(purchaseButtonD, availableItems[3].name, availableItems[3].price, availableItems[3].rate);
+updateButtonText(
+  purchaseButtonD,
+  availableItems[3].name,
+  availableItems[3].price,
+  availableItems[3].rate,
+);
 purchaseButtonD.disabled = true;
 app.append(purchaseButtonD);
 
 const purchaseButtonE = document.createElement("button");
-updateButtonText(purchaseButtonE, availableItems[4].name, availableItems[4].price, availableItems[4].rate);
+updateButtonText(
+  purchaseButtonE,
+  availableItems[4].name,
+  availableItems[4].price,
+  availableItems[4].rate,
+);
 purchaseButtonE.disabled = true;
 app.append(purchaseButtonE);
 
@@ -127,8 +194,8 @@ const setupPurchaseListener = (button: HTMLButtonElement, item: Item) => {
 
       // Set a timeout to hide the description after 10 seconds
       setTimeout(() => {
-        descriptionDiv.style.visibility = "hidden"; 
-      }, 10000); 
+        descriptionDiv.style.visibility = "hidden";
+      }, 10000);
     }
   });
 };
@@ -142,7 +209,9 @@ setupPurchaseListener(purchaseButtonE, availableItems[4]);
 // Update function to refresh display
 const updateDisplays = () => {
   incrementCounter(0);
-  honeyDiv.innerText = availableItems.map(item => `${item.name} ${item.quantity}`).join(', '); // Update display with quantities
+  honeyDiv.innerText = availableItems
+    .map((item) => `${item.name} ${item.quantity}`)
+    .join(", "); // Update display with quantities
   growthRateDiv.innerText = `Growth Rate: ${growthRate.toFixed(1)} bears/sec`;
 };
 
