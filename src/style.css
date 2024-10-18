@@ -69,8 +69,9 @@ button:focus-visible {
   padding: 10px 20px; /* Custom padding */
   font-size: 1.2em; /* Slightly larger font size */
   border-radius: 100%; /* Apply rounded corners */
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transitions for interactions */
-
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease; /* Add transitions for interactions */
 }
 
 #bearButton:hover {
