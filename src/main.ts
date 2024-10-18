@@ -20,20 +20,21 @@ interface Item {
   price: number;
   rate: number;
   description: string;
+  quantity: number; // Track how many of each item is owned
 }
 
+// Initialize available items with quantity
 const availableItems: Item[] = [
-  { name: "🍎", price: 10, rate: 0.1, description: "Honey Apple: A sweet apple that attracts bears." },
-  { name: "🍯", price: 100, rate: 2, description: "Honey Pot: A pot of honey with bear-attracting aromas." },
-  { name: "🍯🐝", price: 1000, rate: 50, description: "Bee Hive: an entire hive dedicated to producing honey." },
-  { name: "🍯🐻", price: 5000, rate: 100, description: "Booster Syrup: A mysterious syrup that doubles bear productivity." },
-  { name: "🍯🏭", price: 20000, rate: 500, description: "Honey Factory: A factory that mass-produces honey delights." },
+  { name: "🍎", price: 10, rate: 0.1, description: "Honey Apple: A sweet apple that attracts bears.", quantity: 0 },
+  { name: "🍯", price: 100, rate: 2, description: "Honey Pot: A pot of honey with bear-attracting aromas.", quantity: 0 },
+  { name: "🍯🐝", price: 1000, rate: 50, description: "Bee Hive: an entire hive dedicated to producing honey.", quantity: 0 },
+  { name: "🍯🐻", price: 5000, rate: 100, description: "Booster Syrup: A mysterious syrup that doubles bear productivity.", quantity: 0 },
+  { name: "🍯🏭", price: 20000, rate: 500, description: "Honey Factory: A factory that mass-produces honey delights.", quantity: 0 },
 ];
 
 // Initialize counters/prices
 let count = 0;
 let growthRate = 0;
-
 
 // Setup Display Elements
 const countDiv = document.createElement("div");
@@ -45,7 +46,6 @@ growthRateDiv.innerText = `Growth Rate: ${growthRate.toFixed(1)} bears/sec`;
 app.append(growthRateDiv);
 
 const honeyDiv = document.createElement("div");
-honeyDiv.innerText = `${availableItems.map(item => `${item.name} 0`).join(', ')}`;
 app.append(honeyDiv);
 
 // Create Description Display Element
@@ -63,7 +63,7 @@ const incrementCounter = (amount: number) => {
 };
 
 const updateButtonStates = () => {
-  const thresholds = [availableItems[0].price, availableItems[1].price,availableItems[2].price, availableItems[3].price, availableItems[4].price];
+  const thresholds = availableItems.map(item => item.price);
   [purchaseButtonA, purchaseButtonB, purchaseButtonC, purchaseButtonD, purchaseButtonE].forEach((button, index) => {
     button.disabled = count < thresholds[index];
   });
@@ -80,12 +80,7 @@ const animate = (time: number) => {
 requestAnimationFrame(animate);
 
 // Button Update Function
-const updateButtonText = (
-  button: HTMLButtonElement,
-  type: string,
-  price: number,
-  rate: number,
-) => {
+const updateButtonText = (button: HTMLButtonElement, type: string, price: number, rate: number) => {
   button.innerText = `${type} (${rate}/sec, ${price.toFixed(2)} units)`;
 };
 
@@ -118,22 +113,23 @@ app.append(purchaseButtonE);
 // Purchase Event Listeners
 const setupPurchaseListener = (button: HTMLButtonElement, item: Item) => {
   button.addEventListener("click", () => {
- if (count >= item.price) {
-   count -= item.price;
-   growthRate += item.rate;
-   item.price *= 1.15;
-   updateButtonText(button, item.name, item.price, item.rate);
-   updateDisplays();
+    if (count >= item.price) {
+      count -= item.price;
+      growthRate += item.rate;
+      item.quantity += 1; // Increment the item quantity
+      item.price *= 1.15;
+      updateButtonText(button, item.name, item.price, item.rate);
+      updateDisplays();
 
-   // Display the item description at the top for 10 seconds
-   descriptionDiv.innerText = item.description;
-   descriptionDiv.style.visibility = "visible";
+      // Display the item description at the top for 10 seconds
+      descriptionDiv.innerText = item.description;
+      descriptionDiv.style.visibility = "visible";
 
-   // Set a timeout to hide the description after 10 seconds
-   setTimeout(() => {
-     descriptionDiv.style.visibility = "hidden"; 
-   }, 10000);
- }
+      // Set a timeout to hide the description after 10 seconds
+      setTimeout(() => {
+        descriptionDiv.style.visibility = "hidden"; 
+      }, 10000); 
+    }
   });
 };
 
@@ -146,11 +142,11 @@ setupPurchaseListener(purchaseButtonE, availableItems[4]);
 // Update function to refresh display
 const updateDisplays = () => {
   incrementCounter(0);
-  honeyDiv.innerText = availableItems.map((item, index) => `${item.name} ${index}`).join(', ');
+  honeyDiv.innerText = availableItems.map(item => `${item.name} ${item.quantity}`).join(', '); // Update display with quantities
   growthRateDiv.innerText = `Growth Rate: ${growthRate.toFixed(1)} bears/sec`;
 };
 
-// Append all elements to the container
+// Append all elements to the container (print order matters in layout)
 app.append(
   header,
   countDiv,
@@ -162,5 +158,4 @@ app.append(
   purchaseButtonE,
   honeyDiv,
   growthRateDiv,
-  );
-  
+);
