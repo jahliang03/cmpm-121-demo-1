@@ -1,7 +1,7 @@
 import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
-const gameName = "Bear Shop";
+const gameName = "👒 Bear Shop 🧸";
 document.title = gameName;
 
 // Create basic elements

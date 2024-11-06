@@ -30,10 +30,20 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+@keyframes titleTilt {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
+  line-height: 0.5;
+  animation: titleTilt 2s ease-in-out infinite; /* Apply tilt animation */
+  color:  #534332;
 }
 
 #app {
@@ -63,9 +73,9 @@ button:focus-visible {
 }
 
 #bearButton {
-  background-color: #fff9c2; /* Set a green background */
+  background-color: #fadbdf; /* yellow background */
   color: white; /* White text */
-  border: 2px solid #fff9c2; /* A solid border with a shade of green */
+  border: 2px solid #fff9c2; /* A solid border with a shade of yellow */
   padding: 10px 20px; /* Custom padding */
   font-size: 1.2em; /* Slightly larger font size */
   border-radius: 100%; /* Apply rounded corners */
@@ -86,7 +96,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #fff3d3;
   }
   a:hover {
     color: #747bff;
